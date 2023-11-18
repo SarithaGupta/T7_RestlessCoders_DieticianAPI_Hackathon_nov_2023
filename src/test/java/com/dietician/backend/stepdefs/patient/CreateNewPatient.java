@@ -1,5 +1,7 @@
 package com.dietician.backend.stepdefs.patient;
 
-public class CreateNewPatient {
+import com.dietician.backend.stepdefs.baseclass.BaseClass;
+
+public class CreateNewPatient extends BaseClass {
 
 }
