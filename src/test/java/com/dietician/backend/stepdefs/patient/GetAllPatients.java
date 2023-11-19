@@ -2,49 +2,49 @@ package com.dietician.backend.stepdefs.patient;
 
 import static io.restassured.RestAssured.given;
 
-import org.testng.annotations.BeforeMethod;
+import java.util.Properties;
 
-import com.dietician.backend.stepdefs.baseclass.BaseClass;
+import com.dietician.backend.stepdefs.constants.Endpoints;
 
-import io.cucumber.java.en.*;
-import io.restassured.RestAssured;
-import io.restassured.authentication.AuthenticationScheme;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
+import utilities.ConfigReaderAndWriter;
 
 @Slf4j
-public class GetAllPatients extends BaseClass{
+public class GetAllPatients {
 	//private static String BASE_URL ="https://dietician-dev-41d9a344a720.herokuapp.com/dietician";
-    private static String GET_ALL_PATIENTS_ENDPOINT ="/patient";
-    private static String AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW1heWFtMjAwOUBnbWFpbC5jb20iLCJpYXQiOjE3MDAzMzc1OTYsImV4cCI6MTcwMDM2NjM5Nn0.7PtDcFiwozGJppAYDWVwTWsy8XLhUsQAjgnZeSf0CBoRgyg0nbqrpB12_nD0n63fWZ-RrzPpIMxbAacQpmCBlg";
+    //private static String GET_ALL_PATIENTS_ENDPOINT ="/patient";
+   // private static String AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYW1heWFtMjAwOUBnbWFpbC5jb20iLCJpYXQiOjE3MDAzMzc1OTYsImV4cCI6MTcwMDM2NjM5Nn0.7PtDcFiwozGJppAYDWVwTWsy8XLhUsQAjgnZeSf0CBoRgyg0nbqrpB12_nD0n63fWZ-RrzPpIMxbAacQpmCBlg";
     
     RequestSpecification request;
     Response response;
     RequestSpecBuilder res;
-   
-  //@BeforeMethod
-  public void basicAuth() {
-	  System.out.println("testing -----");
-	 /* res = new RequestSpecBuilder().setBaseUri(BASE_URL).setContentType(ContentType.JSON);
-      res.addHeader("Authorization", "Bearer " + AUTH_TOKEN); // Add this line to set the Bearer token
-      request = given().spec(res.build()); */
-  }
+    ConfigReaderAndWriter configReaderObj;
+  	Properties prop; 
+    
+    public GetAllPatients() {
+     	configReaderObj = new ConfigReaderAndWriter();
+    	prop = configReaderObj.init_prop();
+    }
     
 	@Given("User creates GET Request for the Dietician API endpoint")
 	public void user_creates_get_request_for_the_dietician_api_endpoint() {
-		String url=	 configReaderObj.loadConfig().getProperty("BASE_URL")+GET_ALL_PATIENTS_ENDPOINT;    
+		String url=	prop.getProperty("BASE_URL");    
         res = new RequestSpecBuilder().setBaseUri(url).setContentType(ContentType.JSON);
-        res.addHeader("Authorization", "Bearer " + AUTH_TOKEN); // Add this line to set the Bearer token
+        res.addHeader("Authorization", "Bearer " + prop.getProperty("AUTH_TOKEN"));
         request = given().spec(res.build());             
        
 	}
 
 	@When("User sends HTTPS Request to get all patients")
 	public void user_sends_https_request_to_get_all_patients() {
-		response = request.when().get(GET_ALL_PATIENTS_ENDPOINT);
+		response = request.when().get(Endpoints.GET_ALL_PATIENTS_ENDPOINT);
 		
 	}
 
