@@ -1,4 +1,4 @@
-Feature: User Logout 
+Feature: User Logout
 
 Scenario: Check if user is able to Logout
 	Given User creates GET request to logout with valid end point
