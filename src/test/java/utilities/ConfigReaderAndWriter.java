@@ -7,30 +7,29 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReaderAndWriter {
-    static Properties props = new Properties();
-    public static Properties loadConfig() {
+    static Properties prop;
+    public static Properties init_prop() {
 
 
         System.out.println("executing LoadProperties.....");
         try {
 
-            System.out.println(System.getProperty("user.dir") + "//src//test//resources//config.properties");
-
+           	prop = new Properties();
             FileInputStream ip = new FileInputStream(
                     System.getProperty("user.dir") + "\\src\\test\\resources\\config.properties");
-            props.load(ip);
+            prop.load(ip);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return props;
+        return prop;
 
     }
 
 
-    public static void storeConfig(String key, String value) throws IOException {
+    /*public static void storeConfig(String key, String value) throws IOException {
 
         loadConfig();
 
@@ -44,6 +43,6 @@ public class ConfigReaderAndWriter {
         props.store(outputStream, "This is a sample properties file");
 
         System.out.println("Properties file created......");
-    }
+    }*/
 
 }

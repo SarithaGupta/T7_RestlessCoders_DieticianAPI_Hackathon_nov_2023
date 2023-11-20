@@ -6,7 +6,7 @@ import java.util.Random;
 public class DynamicNameGenerator {
 
 
-    public String patientNameGenerator() throws IOException {
+    /*public String patientNameGenerator() throws IOException {
 
         String nameConstant = "RestlessCoders-";
         String dynamicSerialNumber = "";
@@ -34,7 +34,7 @@ public class DynamicNameGenerator {
         System.out.println(phoneNumber);
         ConfigReaderAndWriter.storeConfig("phoneNumber", String.valueOf(phoneNumber));
         return phoneNumber;
-    }
+    }*/
 
 
 
