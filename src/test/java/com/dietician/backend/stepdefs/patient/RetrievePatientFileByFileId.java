@@ -33,6 +33,10 @@ public class RetrievePatientFileByFileId {
 		 * System.out.println("File Id---"+fileId); response =
 		 * request.when().get("/patient/testReports/viewFile/" + fileId);
 		 */
+		
+		String fileId="655a68a49be83b1f97ce1902";
+		System.out.println("File Id---"+fileId);
+		response = request.when().get("/patient/testReports/viewFile/" + fileId);
 	}
 
 	@Then("User receives {int} OK Status with corresponding patient File")

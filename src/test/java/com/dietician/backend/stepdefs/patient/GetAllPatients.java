@@ -11,6 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class GetAllPatients {
     RequestSpecBuilder res;
     ConfigReaderAndWriter configReaderObj;
   	Properties prop; 
-    
+  	
     public GetAllPatients() {
      	configReaderObj = new ConfigReaderAndWriter();
     	prop = configReaderObj.init_prop();
@@ -35,7 +36,7 @@ public class GetAllPatients {
     
 	@Given("User creates GET Request for the Dietician API endpoint")
 	public void user_creates_get_request_for_the_dietician_api_endpoint() {
-		String url=	prop.getProperty("BASE_URL");    
+		String url=	prop.getProperty("BASE_URL");  				
         res = new RequestSpecBuilder().setBaseUri(url).setContentType(ContentType.JSON);
         res.addHeader("Authorization", "Bearer " + prop.getProperty("AUTH_TOKEN"));
         request = given().spec(res.build());             
@@ -52,6 +53,7 @@ public class GetAllPatients {
 	public void user_receives_ok_status_with_response_body_of_all_patients_under_particular_dietician(Integer int1) {
 		response.then().log().all().assertThat().statusCode(int1)
         .extract().response().asString();
+		
 	}
 
 
