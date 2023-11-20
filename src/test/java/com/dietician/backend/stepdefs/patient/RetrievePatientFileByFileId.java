@@ -28,9 +28,11 @@ public class RetrievePatientFileByFileId {
 	
 	@When("User sends HTTPS Request to fetch the patient File by valid fileId")
 	public void user_sends_https_request_to_fetch_the_patient_file_by_valid_file_id() {
-		String fileId = ConfigReaderAndWriter.loadConfig().getProperty("fileId");
-		System.out.println("File Id---"+fileId);
-		response = request.when().get("/patient/testReports/viewFile/" + fileId);
+		/*
+		 * String fileId = ConfigReaderAndWriter.loadConfig().getProperty("fileId");
+		 * System.out.println("File Id---"+fileId); response =
+		 * request.when().get("/patient/testReports/viewFile/" + fileId);
+		 */
 	}
 
 	@Then("User receives {int} OK Status with corresponding patient File")

@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/patientController/getAllPatients.feature",
+        features = "src/test/resources/features/userLogin/userLogin.feature",
         glue = {"com.dietician.backend.stepdefs"},
        // tags = "@EndtoEnd",
         monochrome = true,
