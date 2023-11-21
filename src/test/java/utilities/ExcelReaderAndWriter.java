@@ -48,11 +48,11 @@ public class ExcelReaderAndWriter {
         Row row;
         Cell cell;
         totalRow = sheet.getLastRowNum();
-        List<Map<String, String>> excelRows = new ArrayList<>();
+        List<Map<String, String>> excelRows = new ArrayList<Map<String, String>>();
         for (int currentRow = 1; currentRow <= totalRow; currentRow++) {
             row = sheet.getRow(currentRow);
             int totalColumn = row.getLastCellNum();
-            LinkedHashMap<String, String> columnMapData = new LinkedHashMap<>();
+            LinkedHashMap<String, String> columnMapData = new LinkedHashMap<String, String>();
             for (int currentColumn = 0; currentColumn < totalColumn; currentColumn++) {
                 cell = row.getCell(currentColumn);
                 String columnHeaderName = sheet.getRow(sheet.getFirstRowNum()).getCell(currentColumn).getStringCellValue();
