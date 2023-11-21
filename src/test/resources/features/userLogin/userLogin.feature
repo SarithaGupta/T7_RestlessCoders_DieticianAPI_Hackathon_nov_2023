@@ -9,3 +9,10 @@ Feature: User Login
     Then API should respond with status code is "200" 
     And Return an access token
     And Assign "Dietician" role
+
+  @tag2
+  Scenario: User successfully logs in with Patient credential
+    Given User has correct email Patient id and password
+    When The user makes a login request using POST method
+    Then API should respond with status code is "200"
+

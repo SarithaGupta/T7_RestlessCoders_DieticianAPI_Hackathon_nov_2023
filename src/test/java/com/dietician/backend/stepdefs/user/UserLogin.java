@@ -1,6 +1,8 @@
 package com.dietician.backend.stepdefs.user;
 
 import java.util.Properties;
+
+import io.restassured.http.Header;
 import org.testng.Assert;
 import com.dietician.backend.stepdefs.constants.Endpoints;
 import io.cucumber.java.en.*;
@@ -10,6 +12,7 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import utilities.AuthInfoBuilder;
 import utilities.ConfigReaderAndWriter;
 
 
@@ -57,6 +60,23 @@ public class UserLogin /* extends BaseClass */{
 				.post(Endpoints.USERLOGIN_ENDPOINT);
 
 	}
+
+//	@When("The user makes a login request using POST method and token")
+//	public void the_user_makes_a_login_request_using_post_method_and_token() {
+//		requestSpec = new RequestSpecBuilder();
+//		requestSpec.setBaseUri(prop.getProperty("BASE_URL"));
+//		requestSpec.setContentType(ContentType.JSON);
+//		requestSpec.setBody(reqBody);
+//		AuthInfoBuilder authInfoBuilder = new AuthInfoBuilder();
+//		String authToken = authInfoBuilder.getAuthInformation();
+//		request = RestAssured
+//				.given()
+//				.header(new Header("Authorization", "Bearer " + authToken))
+//				.spec(requestSpec.build()).log().all();
+//		response = request.when().log().all()
+//				.post(Endpoints.USERLOGIN_ENDPOINT);
+//
+//	}
 	
 	@Then("API should respond with status code is {string}")
 	public void api_should_respond_with_status_code_is(String expectedstatusCode) {
@@ -87,5 +107,17 @@ public class UserLogin /* extends BaseClass */{
 		System.out.println(roles[1]);
 		//Assert.assertEquals(roles[1],expectedRole.toUpperCase());
 		
+	}
+	@Given("User has correct email Patient id and password")
+	public void user_has_correct_email_patient_id_and_password() {
+		String loginEmail = prop.getProperty("patientEmail");
+		String loginPassword = prop.getProperty("patientPassword");
+		reqBody = "{\n"
+
+				+ "  \"password\": \""+ loginPassword +"\",\n"
+
+				+ "  \"userLoginEmail\": \""+loginEmail+"\"\n"
+
+				+ "}";
 	}
 }
