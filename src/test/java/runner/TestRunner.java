@@ -7,12 +7,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src\\test\\resources\\features",
+        features = "src/test/resources/features/patientController/createNewPatient.feature",
         glue = {"com.dietician.backend.stepdefs"},
-       //tags = "@TRC-23",
-       //dryRun = true,
+       // tags = "@EndtoEnd",
         monochrome = true,
         plugin = {"pretty",
+                "html:target/cucumber-html-report", "json:target/cucumber.json",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "pretty","io.qameta.allure.cucumber7jvm.AllureCucumber7"
                         + "Jvm"}

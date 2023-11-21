@@ -39,9 +39,8 @@ public class CreateNewPatient {
 
     public CreateNewPatient() {
         configReaderObj = new ConfigReaderAndWriter();
-        prop = configReaderObj.initProp();
+        prop = configReaderObj.init_prop();
     }
-
 
     public PatientInfo readDataFromSheet(String sheetName, Integer rowNumber) throws IOException {
         ExcelReaderAndWriter reader = new ExcelReaderAndWriter();
@@ -49,16 +48,18 @@ public class CreateNewPatient {
         PatientInfo patientInfo = new PatientInfo();
         patientInfo.setFirstName(testdata.get(rowNumber).get("FirstName"));
         patientInfo.setLastName(testdata.get(rowNumber).get("LastName"));
-        patientInfo.setContactNumber(testdata.get(rowNumber).get("ContactNumber"));
-        patientInfo.setEmail(testdata.get(rowNumber).get("Email"));
+        long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        patientInfo.setContactNumber(Long.valueOf(number).toString());
+        long numberForEmail = (long) Math.floor(Math.random() * 9_00L) + 1_00L;
+        long numberForEmail1 = (long) Math.floor(Math.random() * 9_00L) + 1_00L;
+        String emailValue = Long.valueOf(numberForEmail1).toString()+"_test_"+Long.valueOf(numberForEmail).toString()+"@gmail.com";
+        patientInfo.setEmail(emailValue);
         patientInfo.setAllergy(testdata.get(rowNumber).get("Allergy"));
         patientInfo.setFoodCategory(testdata.get(rowNumber).get("FoodCategory"));
         patientInfo.setDateOfBirth(testdata.get(rowNumber).get("DateOfBirth"));
         patientInfo.setDieticianId(testdata.get(rowNumber).get("DieticianId"));
         return patientInfo;
     }
-    
-    
     @Given("User needs to create a Patient using {string}")
     public void user_needs_to_create_a_patient_using(String endPoint) {
         apiEndPointUri=prop.getProperty("BASE_URL").concat("/").concat(endPoint);
@@ -85,7 +86,6 @@ public class CreateNewPatient {
         System.out.println(gson.toJson(patientInfo));
 
         given()
-
                 .config(RestAssured
                         .config()
                         .encoderConfig(EncoderConfig
@@ -117,5 +117,13 @@ public class CreateNewPatient {
                 .post(apiEndPointUri)
                 .then()
                 .statusCode(201);
+    }
+
+
+
+    public static void main(String a[]){
+        long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        System.out.println(number);
+        System.out.println(Long.valueOf(number).toString());
     }
 }
