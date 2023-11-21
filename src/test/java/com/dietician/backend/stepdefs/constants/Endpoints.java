@@ -4,7 +4,7 @@ public class Endpoints {
 
 	public static final String GET_ALL_PATIENTS_ENDPOINT ="/patient";
 	public static final String USERLOGIN_ENDPOINT ="/login";
-	public static final String createNewPatient_ENDPOINT ="/patient";
+	public static final String createNewPatient_ENDPOINT ="/patient/";
 	public static final String getAllMorbidities_ENDPOINT ="/morbidity";
 	public static final String updatePatientByUserId_ENDPOINT ="/patient/";
 	public static final String retrieveMorbidityConditionByTestName_ENDPOINT ="/morbidity/";

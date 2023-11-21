@@ -39,7 +39,7 @@ public class CreateNewPatient {
 
     public CreateNewPatient() {
         configReaderObj = new ConfigReaderAndWriter();
-        prop = configReaderObj.init_prop();
+        prop = configReaderObj.initProp();
     }
 
 

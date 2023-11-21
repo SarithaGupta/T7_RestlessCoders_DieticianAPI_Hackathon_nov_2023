@@ -7,9 +7,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/patientController/createNewPatient.feature",
+        features = "src\\test\\resources\\features",
         glue = {"com.dietician.backend.stepdefs"},
-       // tags = "@EndtoEnd",
+       //tags = "@TRC-23",
+       //dryRun = true,
         monochrome = true,
         plugin = {"pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",

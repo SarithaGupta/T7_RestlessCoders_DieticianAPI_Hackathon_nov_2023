@@ -15,7 +15,7 @@ public class AuthInfoBuilder {
     Properties prop;
     public AuthInfoBuilder() {
         configReaderObj = new ConfigReaderAndWriter();
-        prop = configReaderObj.init_prop();
+        prop = configReaderObj.initProp();
     }
 
     public String getAuthInformation(){
