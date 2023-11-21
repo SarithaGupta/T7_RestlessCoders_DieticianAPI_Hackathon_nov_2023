@@ -1,3 +1,4 @@
+@TRC-24
 Feature: Retrieve Patient File By FileId
 
 Scenario: Check if user able to retrieve patient File with valid File Id
