@@ -12,26 +12,39 @@ import io.restassured.RestAssured;
 import io.restassured.config.EncoderConfig;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
+import utilities.AuthInfoBuilder;
+import utilities.ConfigReaderAndWriter;
 import utilities.ExcelReaderAndWriter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import static io.restassured.RestAssured.given;
 
 public class CreateNewPatient {
     private final static Logger logger = Logger.getLogger(CreateNewPatient.class.getName());
-    private String apiBaseUrl ="https://dietician-dev-41d9a344a720.herokuapp.com/dietician";
 
     private String authToken;
     private PatientInfo patientInfo;
+
+    private String apiEndPointUri;
+
+
+    ConfigReaderAndWriter configReaderObj;
+    Properties prop;
+
+    public CreateNewPatient() {
+        configReaderObj = new ConfigReaderAndWriter();
+        prop = configReaderObj.init_prop();
+    }
+
     public PatientInfo readDataFromSheet(String sheetName, Integer rowNumber) throws IOException {
         ExcelReaderAndWriter reader = new ExcelReaderAndWriter();
-        List<Map<String, String>> testdata = reader.getData("src/test/resources/requestBodyDetails.xlsx", sheetName);
+        List<Map<String, String>> testdata = reader.getData("src/test/resources/testData/requestBodyDetails.xlsx", sheetName);
         PatientInfo patientInfo = new PatientInfo();
         patientInfo.setFirstName(testdata.get(rowNumber).get("FirstName"));
         patientInfo.setLastName(testdata.get(rowNumber).get("LastName"));
@@ -44,21 +57,11 @@ public class CreateNewPatient {
         return patientInfo;
     }
     @Given("User needs to create a Patient using {string}")
-    public void user_needs_to_create_a_patient_using(String endpoint) {
-
-        String apiEndPointUri=apiBaseUrl.concat("/").concat(endpoint);
-        logger.info("Cucumber Hostname URL is :: " + apiEndPointUri);
-        getAuthInformation();
+    public void user_needs_to_create_a_patient_using(String endPoint) {
+        apiEndPointUri=prop.getProperty("BASE_URL").concat("/").concat(endPoint);
+        AuthInfoBuilder authInfoBuilder = new AuthInfoBuilder();
+        authToken = authInfoBuilder.getAuthInformation();
     }
-
-    private void getAuthInformation(){
-        String apiEndPointUri=apiBaseUrl.concat("/").concat("login");
-        String request = "{\"password\":\"Worth83\",\"userLoginEmail\":\"Kanchan.basudkar@gmail.com\"}";
-        Response response = given().body(request).contentType("application/JSON").post(apiEndPointUri);
-        JsonPath jpath = new JsonPath(response.getBody().asString());
-        authToken = jpath.getString("token");
-    }
-
 
     @When("User has the patientInfo from {int} of {string}")
     public void userHasThePatientInfoFromOf(Integer rowNumber, String sheetName) throws IOException {
@@ -66,14 +69,24 @@ public class CreateNewPatient {
 
     }
 
-    @Then("user hit the post call the method")
-    public void user_hit_the_post_call_the_method() {
+    @Then("Verify the status code is {string}")
+    public void verify_the_status_code_is(String string) {
+    }
 
-        String apiEndPointUri = apiBaseUrl.concat("/").concat("patient");
+    @Then("user hit the post method")
+    public void user_hit_the_post_method() {
+
+        String apiEndPointUri = prop.getProperty("BASE_URL").concat("/").concat("patient");
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
+        System.out.println(gson.toJson(patientInfo));
+
         given()
-                .config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .config(RestAssured
+                        .config()
+                        .encoderConfig(EncoderConfig
+                                .encoderConfig()
+                                .encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
                 .queryParam("patientInfo", gson.toJson(patientInfo))
                 .header(new Header("Authorization", "Bearer " + authToken))
                 .post(apiEndPointUri)
@@ -81,17 +94,24 @@ public class CreateNewPatient {
                 .statusCode(201);
     }
 
-    @Then("Verify the status code is {string}")
-    public void verify_the_status_code_is(String string) {
+    @Then("user hit the post method and attach file")
+    public void user_hit_the_post_method_and_attach_file() {
+        String apiEndPointUri = prop.getProperty("BASE_URL").concat("/").concat("patient");
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
-    }
+        System.out.println(gson.toJson(patientInfo));
 
-    @Then("User get the authInformation")
-    public void userGetTheAuthInformation() {
-
-    }
-
-    @Given("User needs to call an api")
-    public void userNeedsToCallAnApi() {
+        given()
+                .config(RestAssured
+                        .config()
+                        .encoderConfig(EncoderConfig
+                                .encoderConfig()
+                                .encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                .multiPart(new File("src/test/resources/testData/Hypo Thyroid-Report.pdf.pdf"))
+                .queryParam("patientInfo", gson.toJson(patientInfo))
+                .header(new Header("Authorization", "Bearer " + authToken))
+                .post(apiEndPointUri)
+                .then()
+                .statusCode(201);
     }
 }
