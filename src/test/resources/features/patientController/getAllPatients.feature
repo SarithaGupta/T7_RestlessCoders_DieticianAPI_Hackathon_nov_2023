@@ -1,3 +1,4 @@
+@TRC-19
 Feature: Get All Patients 
 
 Background:

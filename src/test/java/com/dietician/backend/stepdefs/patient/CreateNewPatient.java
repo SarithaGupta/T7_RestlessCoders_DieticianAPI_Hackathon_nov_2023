@@ -29,9 +29,10 @@ public class CreateNewPatient {
 
     private String authToken;
     private PatientInfo patientInfo;
+    
     public PatientInfo readDataFromSheet(String sheetName, Integer rowNumber) throws IOException {
         ExcelReaderAndWriter reader = new ExcelReaderAndWriter();
-        List<Map<String, String>> testdata = reader.getData("src/test/resources/requestBodyDetails.xlsx", sheetName);
+        List<Map<String, String>> testdata = reader.getData("src/test/resources/testData/requestBodyDetails.xlsx", sheetName);
         PatientInfo patientInfo = new PatientInfo();
         patientInfo.setFirstName(testdata.get(rowNumber).get("FirstName"));
         patientInfo.setLastName(testdata.get(rowNumber).get("LastName"));
@@ -43,6 +44,8 @@ public class CreateNewPatient {
         patientInfo.setDieticianId(testdata.get(rowNumber).get("DieticianId"));
         return patientInfo;
     }
+    
+    
     @Given("User needs to create a Patient using {string}")
     public void user_needs_to_create_a_patient_using(String endpoint) {
 
@@ -74,6 +77,8 @@ public class CreateNewPatient {
 
         given()
                 .config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs("multipart/form-data", ContentType.TEXT)))
+                //Serialization is happening --> converting Java object to json object
+
                 .queryParam("patientInfo", gson.toJson(patientInfo))
                 .header(new Header("Authorization", "Bearer " + authToken))
                 .post(apiEndPointUri)

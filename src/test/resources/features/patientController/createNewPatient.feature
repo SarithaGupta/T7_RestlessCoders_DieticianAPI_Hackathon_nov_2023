@@ -1,4 +1,4 @@
-@tag
+@TRC-20
 Feature: POST: Verify the Create new patient
 
   @tag2
@@ -11,3 +11,5 @@ Feature: POST: Verify the Create new patient
     Examples:
       | endpoint | rowNum | sheet       | StatusCode |
       | patient  | 0      | PatientInfo | 201        |
+      | patient  | 1      | PatientInfo | 201        |
+      

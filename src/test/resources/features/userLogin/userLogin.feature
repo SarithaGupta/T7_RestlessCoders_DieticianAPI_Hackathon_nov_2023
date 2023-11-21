@@ -1,4 +1,4 @@
-@tag
+@TCR-25
 Feature: User Login
   I want to use this template for my feature file
 

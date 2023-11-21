@@ -1,3 +1,4 @@
+@TCR-26
 Feature: User Logout
 
 Scenario: Check if user is able to Logout
