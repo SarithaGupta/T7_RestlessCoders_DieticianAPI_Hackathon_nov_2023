@@ -48,8 +48,12 @@ public class CreateNewPatient {
         PatientInfo patientInfo = new PatientInfo();
         patientInfo.setFirstName(testdata.get(rowNumber).get("FirstName"));
         patientInfo.setLastName(testdata.get(rowNumber).get("LastName"));
-        patientInfo.setContactNumber(testdata.get(rowNumber).get("ContactNumber"));
-        patientInfo.setEmail(testdata.get(rowNumber).get("Email"));
+        long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        patientInfo.setContactNumber(Long.valueOf(number).toString());
+        long numberForEmail = (long) Math.floor(Math.random() * 9_00L) + 1_00L;
+        long numberForEmail1 = (long) Math.floor(Math.random() * 9_00L) + 1_00L;
+        String emailValue = Long.valueOf(numberForEmail1).toString()+"_test_"+Long.valueOf(numberForEmail).toString()+"@gmail.com";
+        patientInfo.setEmail(emailValue);
         patientInfo.setAllergy(testdata.get(rowNumber).get("Allergy"));
         patientInfo.setFoodCategory(testdata.get(rowNumber).get("FoodCategory"));
         patientInfo.setDateOfBirth(testdata.get(rowNumber).get("DateOfBirth"));
@@ -113,5 +117,13 @@ public class CreateNewPatient {
                 .post(apiEndPointUri)
                 .then()
                 .statusCode(201);
+    }
+
+
+
+    public static void main(String a[]){
+        long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        System.out.println(number);
+        System.out.println(Long.valueOf(number).toString());
     }
 }
