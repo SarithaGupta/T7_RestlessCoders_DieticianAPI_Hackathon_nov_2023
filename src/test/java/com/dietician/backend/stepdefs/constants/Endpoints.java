@@ -11,6 +11,8 @@ public class Endpoints {
 	public static final String getPatientsMorbidityDetails_ENDPOINT ="/patient/testReports/";
 	public static final String retrievePatientFileByFileId_ENDPOINT ="patient/testReports/viewFile/";
 	public static final String deletePatientByUserId_ENDPOINT ="/patient/";
-	public static final String userLogout_ENDPOINT ="/logoutdietician"; 
+	public static final String userLogout_ENDPOINT ="/logoutdietician";
+	public static final String invalid_ENDPOINT ="/testt";
+	
 	private static final String patientPassword = "test";
 }
