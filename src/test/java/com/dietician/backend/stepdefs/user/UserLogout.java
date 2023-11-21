@@ -44,7 +44,7 @@ public class UserLogout {
 		request = RestAssured.given().spec(requestSpec.build()).log().all();
 	}
 
-	@When("User sends valid HTTPS request to logout from Dietician API")
+	@When("User sends valid HTTPS Request to logout from Dietician API")
 	public void user_sends_valid_https_request_to_logout_from_dietician_api() {
 		response = request.when().log().all().get(Endpoints.userLogout_ENDPOINT);
 	}
