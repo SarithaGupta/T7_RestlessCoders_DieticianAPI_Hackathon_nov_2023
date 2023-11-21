@@ -28,7 +28,7 @@ public class DeletePatientByUserId {
     private String apiEndPointUri;
     public DeletePatientByUserId() {
         configReaderObj = new ConfigReaderAndWriter();
-        prop = configReaderObj.init_prop();
+        prop = configReaderObj.initProp();
     }
 
     public void readDataFromSheet(String sheetName, Integer rowNumber) throws IOException {
