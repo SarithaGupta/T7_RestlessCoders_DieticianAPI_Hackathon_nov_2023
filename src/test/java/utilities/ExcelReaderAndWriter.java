@@ -12,7 +12,7 @@ import java.util.*;
 public class ExcelReaderAndWriter {
       
     public Map<String, String> readRequestBodyDetailsForUserModule() throws IOException {
-        String path = ".\\src\\test\\resources\\requestBodyDetails.xlsx";
+        String path = ".\\src\\test\\resources\\testData\\requestBodyDetails.xlsx";
         File excelFile = new File(path);
         FileInputStream fileInputStream = new FileInputStream(excelFile);
         XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
