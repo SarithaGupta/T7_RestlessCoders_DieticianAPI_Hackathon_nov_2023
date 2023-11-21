@@ -2,23 +2,24 @@
 Feature: Title of your feature
   I want to use this template for my feature file
 
-  @tag1
-  Scenario: Title of your scenario
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
+Background:
+		Given User has correct email id and password
+    When The user makes a login request using POST method
+    Then API should respond with status code is "200" 
+    And Return an access token
+    And Assign "Dietician" role
 
-  @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
+ @tag1
 
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+Scenario: to retrieve morbidity condition by test name
+
+Given User creates a GET request for the dietician API endpoint
+When User sends a HTTPS request to fetch the morbidity details by using specific testname "TSH"
+Then User should be presented with a status "200"
+And The response body should contain all the morbidity details of the patient
+
+Scenario: to retrieve morbidity condition by test name
+
+Given User creates a GET request for the dietician API endpoint for morbidity
+When User sends a HTTPS request to fetch morbidity details by using invalid testname "TSRA"
+Then User should be presented with a error status "404"
