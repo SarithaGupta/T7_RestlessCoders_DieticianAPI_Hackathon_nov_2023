@@ -29,7 +29,7 @@ public class UserLogin /* extends BaseClass */{
     public UserLogin() {
     	//pass object through constructor
     	configReaderObj = new ConfigReaderAndWriter();
-    	prop = configReaderObj.init_prop();
+    	prop = configReaderObj.initProp();
         runTimeData = new RunTimeDataReader();
 
     }
