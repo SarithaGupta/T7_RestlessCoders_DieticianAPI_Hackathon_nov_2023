@@ -13,6 +13,7 @@ public class Endpoints {
 	public static final String deletePatientByUserId_ENDPOINT ="/patient/";
 	public static final String userLogout_ENDPOINT ="/logoutdietician";
 	public static final String invalid_ENDPOINT ="/testt";
+	public static String invalid_FileId = "65580ad57fc8ae334a2da25";
 	
 	private static final String patientPassword = "test";
 }
