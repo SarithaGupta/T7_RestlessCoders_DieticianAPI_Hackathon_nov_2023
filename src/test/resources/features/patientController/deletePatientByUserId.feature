@@ -1,24 +1,13 @@
-@TRC-22
-Feature: Title of your feature
-  I want to use this template for my feature file
 
-  @tag1
-  Scenario: Title of your scenario
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
+@tag
+Feature: POST: Verify the Delete Patient by Id
 
   @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
+  Scenario Outline: DELETE: Delete Patient
+    Given User needs to delete a Patient using "<endpoint>"
+    When User has the patientId from <rowNum> of "<sheet>"
+    Then user calls the delete api for status "<StatusCode>"
 
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+    Examples:
+      | endpoint | rowNum | sheet             | StatusCode |
+      | patient  | 0      | deletePatientInfo | 200        |
